@@ -52,6 +52,33 @@ SupportOverlay.prototype.$ailthru = function(selector, callback, timeout, keepAl
     }
 }
 
+SupportOverlay.prototype.setCookie = function(name,value,days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+};
+
+SupportOverlay.prototype.getCookie = function(name) {
+    var key = escape(name) + "=";
+    var cs = document.cookie.split(';');
+    for (var i = 0; i < cs.length; i++) {
+        var c = cs[i];
+        while (c.charAt(0) === ' ') {
+        	c = c.substring(1, c.length);
+        }
+        if (c.indexOf(key) === 0) {
+        	return unescape(c.substring(key.length, c.length));
+        }
+    }
+    return null;
+};
+
 SupportOverlay.prototype.addJobRowLinks = function(rows){
 	var IDs = this.getRowIDs(rows);
 
