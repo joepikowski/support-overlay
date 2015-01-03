@@ -92,7 +92,7 @@ SupportOverlay.prototype.addJobRowLinks = function(rows){
 	$(rows).each(addLinks);
 
 	function addLinks(i){
-		$(this).find('td').wrapInner('<a href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
+		$(this).find('td').wrapInner('<a class="stoverlay-elem" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
 	}
 };
 
@@ -102,8 +102,8 @@ SupportOverlay.prototype.addFeedRowIDs = function(rows){
 	$(rows).each(addIDs);
 
 	function addIDs(i){
-		$(this).find('b').first().append(" | "+IDs[i]);
-        $(this).find('b').first().wrapInner('<a href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
+		$(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
+        $(this).find('b').first().wrapInner('<a class="stoverlay-elem" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
 	}
 };
 
