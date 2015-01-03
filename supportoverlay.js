@@ -17,8 +17,8 @@ SupportOverlay.prototype.start = function(){
 	var path = window.location.pathname;
 
 	if (host === "https://my.sailthru.com"){
-		this.addToggleButton();
-		
+		this.$ailthru("#header_top_right","addToggleButton");
+
 		switch (path)
 			{
 			case "/reports/jobs":
@@ -81,9 +81,9 @@ SupportOverlay.prototype.getCookie = function(name) {
     return null;
 };
 
-SupportOverlay.prototype.addToggleButton = function() {
+SupportOverlay.prototype.addToggleButton = function(match) {
 	var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:10px; padding-top:5px;"><img src="http://fc05.deviantart.net/fs43/f/2009/132/9/f/_leunimpressed__by_Tibboh.gif" /></div>';
-	$('#header_top_right').prepend(buttonHTML);
+	$(match).prepend(buttonHTML);
 };
 
 SupportOverlay.prototype.addJobRowLinks = function(rows){
