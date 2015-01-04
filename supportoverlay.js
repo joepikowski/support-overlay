@@ -69,6 +69,7 @@ SupportOverlay.prototype.setCookie = function(name,value,days) {
     } else {
         expires = "";
     }
+    this.cookie = value;
     document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
 };
 
