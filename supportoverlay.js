@@ -87,6 +87,20 @@ SupportOverlay.prototype.getCookie = function(name) {
 SupportOverlay.prototype.addToggleButton = function(match) {
 	var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:10px; padding-top:5px;"><img src="http://fc05.deviantart.net/fs43/f/2009/132/9/f/_leunimpressed__by_Tibboh.gif" /></div>';
 	$(match).prepend(buttonHTML);
+    $("#sailthru-overlay-toggle").click(this.toggleOverlay.bind(this));
+};
+
+SupportOverlay.prototype.toggleOverlay = function() {
+    var c = this.getCookie("stoverlay");
+
+    if (!c || c === "on"){
+        this.setCookie("stoverlay","off",7);
+        $(".stoverlay-elem").hide();
+        $(".stoverlay-link").contents().unwrap();
+    }else{
+        this.setCookie("stoverlay","on",7);
+        this.insertElementsByPath(window.location.pathname);
+    }
 };
 
 SupportOverlay.prototype.addJobRowLinks = function(rows){
@@ -95,7 +109,7 @@ SupportOverlay.prototype.addJobRowLinks = function(rows){
 	$(rows).each(addLinks);
 
 	function addLinks(i){
-		$(this).find('td').wrapInner('<a class="stoverlay-elem" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
+		$(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
 	}
 };
 
@@ -106,7 +120,7 @@ SupportOverlay.prototype.addFeedRowIDs = function(rows){
 
 	function addIDs(i){
 		$(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
-        $(this).find('b').first().wrapInner('<a class="stoverlay-elem" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
+        $(this).find('b').first().wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
 	}
 };
 
