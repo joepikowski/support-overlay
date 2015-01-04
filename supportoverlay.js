@@ -10,12 +10,13 @@
 
 // Class Declaration
 
-function SupportOverlay(){};
+function SupportOverlay(){
+    this.host = window.location.protocol + "//" + window.location.hostname;
+    this.path = window.location.pathname;
+    this.cookie = this.getCookie("stoverlay");
+};
 
 SupportOverlay.prototype.start = function(){
-	var host = window.location.protocol + "//" + window.location.hostname;
-	var path = window.location.pathname;
-
 	if (host === "https://my.sailthru.com"){
 		this.$ailthru("#header_top_right","addToggleButton");
         this.insertElementsByPath(path);
