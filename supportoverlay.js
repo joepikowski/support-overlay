@@ -17,9 +17,9 @@ function SupportOverlay(){
 };
 
 SupportOverlay.prototype.start = function(){
-	if (host === "https://my.sailthru.com"){
+	if (this.host === "https://my.sailthru.com"){
 		this.$ailthru("#header_top_right","addToggleButton");
-        this.insertElementsByPath(path);
+        this.insertElementsByPath(this.path);
 	}
 };
 
@@ -92,7 +92,7 @@ SupportOverlay.prototype.addToggleButton = function(match) {
 };
 
 SupportOverlay.prototype.toggleOverlay = function() {
-    var c = this.getCookie("stoverlay");
+    var c = this.cookie;
 
     if (!c || c === "on"){
         this.setCookie("stoverlay","off",7);
@@ -100,7 +100,7 @@ SupportOverlay.prototype.toggleOverlay = function() {
         $(".stoverlay-link").contents().unwrap();
     }else{
         this.setCookie("stoverlay","on",7);
-        this.insertElementsByPath(window.location.pathname);
+        this.insertElementsByPath(this.path);
     }
 };
 
