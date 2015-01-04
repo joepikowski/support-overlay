@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sailthru Support Overlay 
 // @namespace    http://www.sailthru-support.com
-// @version      0.3
+// @version      0.4
 // @description  A Support-centric features overlay for the Sailthru UI
 // @author       Joe Pikowski
 // @match        https://my.sailthru.com*
