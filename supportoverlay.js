@@ -18,17 +18,20 @@ SupportOverlay.prototype.start = function(){
 
 	if (host === "https://my.sailthru.com"){
 		this.$ailthru("#header_top_right","addToggleButton");
-
-		switch (path)
-			{
-			case "/reports/jobs":
-				this.$ailthru(".odd,.even","addJobRowLinks");
-				break;
-			case "/feeds":
-				this.$ailthru(".odd,.even","addFeedRowIDs");
-				break;
-			}
+        this.insertElementsByPath(path);
 	}
+};
+
+SupportOverlay.prototype.insertElementsByPath = function(path){
+    switch (path)
+        {
+        case "/reports/jobs":
+            this.$ailthru(".odd,.even","addJobRowLinks");
+            break;
+        case "/feeds":
+            this.$ailthru(".odd,.even","addFeedRowIDs");
+            break;
+        }
 };
 
 SupportOverlay.prototype.$ailthru = function(selector, callback, timeout, keepAlive) {
