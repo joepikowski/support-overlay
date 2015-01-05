@@ -89,8 +89,11 @@ SupportOverlay.prototype.getCookie = function(name) {
 };
 
 SupportOverlay.prototype.addToggleButton = function(match) {
-    var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:15px; padding-top:5px;"><img src="https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2Ftools.png" /></div>';
-	$(match).prepend(buttonHTML);
+    var c = this.cookie;
+    var img = c === "off" ? "tools-grey" : "tools";
+    var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:15px; padding-top:5px;"><img src="https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2F'+img+'.png" /></div>';
+	
+    $(match).prepend(buttonHTML);
     $("#sailthru-overlay-toggle").click(this.toggleOverlay.bind(this));
 };
 
@@ -101,8 +104,10 @@ SupportOverlay.prototype.toggleOverlay = function() {
         this.setCookie("stoverlay","off",7);
         $(".stoverlay-elem").hide();
         $(".stoverlay-link").contents().unwrap();
+        $("#sailthru-overlay-toggle img").attr("src","https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2Ftools-grey.png");
     }else{
         this.setCookie("stoverlay","on",7);
+        $("#sailthru-overlay-toggle img").attr("src","https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2Ftools.png");
         this.insertElementsByPath(this.path);
     }
 };
