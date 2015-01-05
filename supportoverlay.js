@@ -91,7 +91,7 @@ SupportOverlay.prototype.getCookie = function(name) {
 SupportOverlay.prototype.addToggleButton = function(match) {
     var c = this.cookie;
     var img = c === "off" ? "tools-grey" : "tools";
-    var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:15px; padding-top:5px;"><img src="https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2F'+img+'.png" /></div>';
+    var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:15px; padding-top:5px; cursor:pointer;"><img src="https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2F'+img+'.png" /></div>';
 	
     $(match).prepend(buttonHTML);
     $("#sailthru-overlay-toggle").click(this.toggleOverlay.bind(this));
