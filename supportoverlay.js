@@ -20,6 +20,7 @@ SupportOverlay.prototype.start = function(){
 	if (this.host === "https://my.sailthru.com"){
 		this.$ailthru("#header_top_right","addToggleButton");
         if (this.cookie !== "off") {
+            $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
             this.insertElementsByPath(this.path);
         }
 	}
