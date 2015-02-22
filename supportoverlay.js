@@ -17,13 +17,13 @@ function SupportOverlay(){
 };
 
 SupportOverlay.prototype.start = function(){
-	if (this.host === "https://my.sailthru.com"){
-		this.$ailthru("#header_top_right","addToggleButton");
+    if (this.host === "https://my.sailthru.com"){
+        this.$ailthru("#header_top_right","addToggleButton");
         if (this.cookie !== "off") {
             $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
             this.insertElementsByPath(this.path);
         }
-	}
+    }
 };
 
 SupportOverlay.prototype.insertElementsByPath = function(path){
@@ -34,6 +34,10 @@ SupportOverlay.prototype.insertElementsByPath = function(path){
             break;
         case "/feeds":
             this.$ailthru(".odd,.even","addFeedRowIDs");
+            break;
+        case "/reports/user_lookup":
+            this.$ailthru(".user_image img","addProfileLink");
+            this.$ailthru("#name","addProfileLink");
             break;
         }
 };
@@ -80,10 +84,10 @@ SupportOverlay.prototype.getCookie = function(name) {
     for (var i = 0; i < cs.length; i++) {
         var c = cs[i];
         while (c.charAt(0) === ' ') {
-        	c = c.substring(1, c.length);
+            c = c.substring(1, c.length);
         }
         if (c.indexOf(key) === 0) {
-        	return unescape(c.substring(key.length, c.length));
+            return unescape(c.substring(key.length, c.length));
         }
     }
     return null;
@@ -93,7 +97,7 @@ SupportOverlay.prototype.addToggleButton = function(match) {
     var c = this.cookie;
     var img = c === "off" ? "tools-grey" : "tools";
     var buttonHTML = '<div id="sailthru-overlay-toggle" class="header_top_right_item" style="padding-right:15px; padding-top:5px; cursor:pointer;"><img src="https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2F'+img+'.png" /></div>';
-	
+    
     $(match).prepend(buttonHTML);
     $("#sailthru-overlay-toggle").click(this.toggleOverlay.bind(this));
 };
@@ -114,46 +118,53 @@ SupportOverlay.prototype.toggleOverlay = function() {
 };
 
 SupportOverlay.prototype.addJobRowLinks = function(rows){
-	var IDs = this.getRowIDs(rows);
+    var IDs = this.getRowIDs(rows);
 
-	$(rows).each(addLinks);
+    $(rows).each(addLinks);
 
-	function addLinks(i){
-		$(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
-	}
+    function addLinks(i){
+        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
+    }
 };
 
 SupportOverlay.prototype.addFeedRowIDs = function(rows){
-	var IDs = this.getRowIDs(rows);
+    var IDs = this.getRowIDs(rows);
 
-	$(rows).each(addIDs);
+    $(rows).each(addIDs);
 
-	function addIDs(i){
-		$(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
+    function addIDs(i){
+        $(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
         $(this).find('b').first().wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
-	}
+    }
+};
+
+SupportOverlay.prototype.addProfileLink = function(profileItem){
+    var clientID = $("#client_name").text().match(/\d+/)[0];
+    var userEmail = $("#name").text();
+
+    $(profileItem).wrap('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=profile&query=%7B%22client_id%22:'+clientID+',%22email%22:%22'+userEmail+'%22%7D"></a>');
 };
 
 SupportOverlay.prototype.getRowIDs = function(rows){
-	var IDs = [];
+    var IDs = [];
 
-	$(rows).each(getIDsFromClass);
+    $(rows).each(getIDsFromClass);
 
-	function getIDsFromClass(){
-		var rowClasses = $(this).attr('class').split(" ");
+    function getIDsFromClass(){
+        var rowClasses = $(this).attr('class').split(" ");
 
-		rowClasses.forEach(getIDs);
+        rowClasses.forEach(getIDs);
 
-		function getIDs(elem,ind,arr){
-			if (elem.indexOf("id-") > -1){
-				IDs.push(elem.substring(3));
-			}
-		}
-	}
-	return IDs;
+        function getIDs(elem,ind,arr){
+            if (elem.indexOf("id-") > -1){
+                IDs.push(elem.substring(3));
+            }
+        }
+    }
+    return IDs;
 };
 
 $(function(){
     var overlay = new SupportOverlay();
-	overlay.start();
+    overlay.start();
 });
