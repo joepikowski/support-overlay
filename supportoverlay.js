@@ -17,7 +17,7 @@ function SupportOverlay(){
 };
 
 SupportOverlay.prototype.start = function(){
-    if (this.host === "https://my.sailthru.com"){
+    if (this.host === "https://my.sailthru.com" || this.host === "https://su.sailthru.com"){
         this.$ailthru("#header_top_right","addToggleButton");
         if (this.cookie !== "off") {
             $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
@@ -40,6 +40,9 @@ SupportOverlay.prototype.insertElementsByPath = function(path){
             this.$ailthru("#name","addProfileLink");
             this.$ailthru(".user_lookup_mass_mails","addMessageLink");
             this.$ailthru(".user_lookup_transactionals","addMessageLink");
+            break;
+        case "/lookup/message":
+            this.$ailthru(".standard tr td:eq(1)","addBlastLink");
             break;
         }
 };
@@ -157,6 +160,12 @@ SupportOverlay.prototype.addMessageLink = function(messageSection){
     function addIDs(i){
         $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/message?message_id='+IDs[i]+'"></a>');
     }
+};
+
+SupportOverlay.prototype.addBlastLink = function(blast){
+    var ID = $(blast).text();
+    
+    $(blast).wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=blast&query='+ID+'"></a>');
 };
 
 SupportOverlay.prototype.getRowIDs = function(rows){
