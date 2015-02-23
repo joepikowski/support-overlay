@@ -38,6 +38,8 @@ SupportOverlay.prototype.insertElementsByPath = function(path){
         case "/reports/user_lookup":
             this.$ailthru(".user_image img","addProfileLink");
             this.$ailthru("#name","addProfileLink");
+            this.$ailthru(".user_lookup_mass_mails","addMessageLink");
+            this.$ailthru(".user_lookup_transactionals","addMessageLink");
             break;
         }
 };
@@ -123,7 +125,7 @@ SupportOverlay.prototype.addJobRowLinks = function(rows){
     $(rows).each(addLinks);
 
     function addLinks(i){
-        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>')
+        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>');
     }
 };
 
@@ -134,7 +136,7 @@ SupportOverlay.prototype.addFeedRowIDs = function(rows){
 
     function addIDs(i){
         $(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
-        $(this).find('b').first().wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>')
+        $(this).find('b').first().wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>');
     }
 };
 
@@ -143,6 +145,18 @@ SupportOverlay.prototype.addProfileLink = function(profileItem){
     var userEmail = $("#name").text();
 
     $(profileItem).wrap('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=profile&query=%7B%22client_id%22:'+clientID+',%22email%22:%22'+userEmail+'%22%7D"></a>');
+};
+
+SupportOverlay.prototype.addMessageLink = function(messageSection){
+    var rows = $(messageSection).parents(".user_row").find(".odd,.even");
+
+    var IDs = this.getRowIDs(rows);
+
+    $(rows).each(addIDs);
+
+    function addIDs(i){
+        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/message?message_id='+IDs[i]+'"></a>');
+    }
 };
 
 SupportOverlay.prototype.getRowIDs = function(rows){
