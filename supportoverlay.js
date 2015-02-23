@@ -142,7 +142,7 @@ SupportOverlay.prototype.addFeedRowIDs = function(rows){
 
 SupportOverlay.prototype.addProfileLink = function(profileItem){
     var clientID = $("#client_name").text().match(/\d+/)[0];
-    var userEmail = $("#name").text();
+    var userEmail = encodeURIComponent($("#name").text());
 
     $(profileItem).wrap('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=profile&query=%7B%22client_id%22:'+clientID+',%22email%22:%22'+userEmail+'%22%7D"></a>');
 };
