@@ -38,8 +38,7 @@ SupportOverlay.prototype.insertElementsByPath = function(path){
         case "/reports/user_lookup":
             this.$ailthru(".user_image img","addProfileLink");
             this.$ailthru("#name","addProfileLink");
-            this.$ailthru(".user_lookup_mass_mails","addMessageLink");
-            this.$ailthru(".user_lookup_transactionals","addMessageLink");
+            this.$ailthru(".user_lookup_mass_mails,.user_lookup_transactionals","addMessageLink");
             break;
         case "/lookup/message":
             this.$ailthru(".standard tr td:eq(1)","addBlastLink");
