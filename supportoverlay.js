@@ -134,7 +134,7 @@ SupportOverlay.prototype.addJobRowLinks = function(rows){
     $(rows).each(addLinks);
 
     function addLinks(i){
-        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>');
+        $(this).find('td').wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=job&query='+IDs[i]+'"></a>');
     }
 };
 
@@ -145,7 +145,7 @@ SupportOverlay.prototype.addFeedRowIDs = function(rows){
 
     function addIDs(i){
         $(this).find('b').first().append('<span class="stoverlay-elem"> | '+IDs[i]+'</span>');
-        $(this).find('b').first().wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>');
+        $(this).find('b').first().wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=feed&query='+IDs[i]+'"></a>');
     }
 };
 
@@ -153,7 +153,7 @@ SupportOverlay.prototype.addProfileLink = function(profileItem){
     var clientID = $("#client_name").text().match(/\d+/)[0];
     var userEmail = encodeURIComponent($("#name").text());
 
-    $(profileItem).wrap('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=profile&query=%7B%22client_id%22:'+clientID+',%22email%22:%22'+userEmail+'%22%7D"></a>');
+    $(profileItem).wrap('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=profile&query=%7B%22client_id%22:'+clientID+',%22email%22:%22'+userEmail+'%22%7D"></a>');
 };
 
 SupportOverlay.prototype.addMessageLink = function(messageSection){
@@ -164,14 +164,14 @@ SupportOverlay.prototype.addMessageLink = function(messageSection){
     $(rows).each(addIDs);
 
     function addIDs(i){
-        $(this).find('td').wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/message?message_id='+IDs[i]+'"></a>');
+        $(this).find('td').wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/message?message_id='+IDs[i]+'"></a>');
     }
 };
 
 SupportOverlay.prototype.addBlastLink = function(blast){
     var ID = $(blast).text();
     
-    $(blast).wrapInner('<a class="stoverlay-link" href="https://su.sailthru.com/lookup/db?collection=blast&query='+ID+'"></a>');
+    $(blast).wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=blast&query='+ID+'"></a>');
 };
 
 SupportOverlay.prototype.getRowIDs = function(rows){
