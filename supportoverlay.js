@@ -19,8 +19,8 @@ function SupportOverlay(){
 SupportOverlay.prototype.start = function(){
     if (this.host === "https://my.sailthru.com" || this.host === "https://su.sailthru.com"){
         this.$ailthru("#header_top_right","addToggleButton");
+        this.$ailthru(".pagination","addAJAXListener");
         if (this.cookie !== "off") {
-            $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
             this.insertElementsByPath(this.path);
         }
     }
@@ -105,6 +105,10 @@ SupportOverlay.prototype.addToggleButton = function(match) {
     
     $(match).prepend(buttonHTML);
     $("#sailthru-overlay-toggle").click(this.toggleOverlay.bind(this));
+};
+
+SupportOverlay.prototype.addAJAXListener = function(match) {
+    $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
 };
 
 SupportOverlay.prototype.toggleOverlay = function() {
