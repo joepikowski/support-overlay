@@ -43,6 +43,9 @@ SupportOverlay.prototype.insertElementsByPath = function(path){
         case "/lookup/message":
             this.$ailthru(".standard tr td:eq(1)","addBlastLink");
             break;
+        case "/lookup/content":
+            this.$ailthru("#interface h3","addContentLink");
+            break;
         }
 };
 
@@ -171,6 +174,13 @@ SupportOverlay.prototype.addBlastLink = function(blast){
     var ID = $(blast).text();
     
     $(blast).wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=blast&query='+ID+'"></a>');
+};
+
+SupportOverlay.prototype.addContentLink = function(content){
+    var URL = encodeURIComponent($(content).eq(1).find("a").text());
+    var clientID = $("#client_name").text().match(/\d+/)[0];
+
+    $(content).first().wrapInner('<a class="stoverlay-link" style="color:#00CCED;" href="https://su.sailthru.com/lookup/db?collection=content&query=%7B%22client_id%22:'+clientID+',%22url%22:%22'+URL+'%22%7D"></a>');
 };
 
 SupportOverlay.prototype.getRowIDs = function(rows){
