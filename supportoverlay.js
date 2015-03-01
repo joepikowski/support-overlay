@@ -133,6 +133,7 @@ SupportOverlay.prototype.toggleOverlay = function() {
         $(".stoverlay-elem").hide();
         $(".stoverlay-link").contents().unwrap();
         $("#sailthru-overlay-toggle img").attr("src","https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2Ftools-grey.png");
+        $("#name").css("color","");
         $(document).unbind("ajaxComplete");
     }else{
         this.setCookie("stoverlay","on",7);
