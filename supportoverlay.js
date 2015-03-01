@@ -110,7 +110,19 @@ SupportOverlay.prototype.addToggleButton = function(match) {
 };
 
 SupportOverlay.prototype.addAJAXListener = function(match) {
-    $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
+    $(".pagination").find(".button,.pagination_button").not(".disabled,.pagination_button_disabled").on("click",addListener.bind(this));
+
+    function addListener(){
+        $(document).ajaxComplete(this.renderAfterAJAX.bind(this));
+    }
+};
+
+SupportOverlay.prototype.renderAfterAJAX = function(match) {
+    $(document).unbind("ajaxComplete");
+    this.$ailthru(".pagination","addAJAXListener");
+    if (this.cookie !== "off") {
+        this.insertElementsByPath(this.path);
+    }
 };
 
 SupportOverlay.prototype.toggleOverlay = function() {
@@ -125,7 +137,7 @@ SupportOverlay.prototype.toggleOverlay = function() {
     }else{
         this.setCookie("stoverlay","on",7);
         $("#sailthru-overlay-toggle img").attr("src","https://my.sailthru.com/ssl?url=http%3A%2F%2Fsailthru-support.com%2Fimg%2Ftools.png");
-        $(document).ajaxComplete(this.insertElementsByPath.bind(this,this.path));
+        $(document).ajaxComplete(this.renderAfterAJAX.bind(this));
         this.insertElementsByPath(this.path);
     }
 };
