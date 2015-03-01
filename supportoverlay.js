@@ -19,8 +19,8 @@ function SupportOverlay(){
 SupportOverlay.prototype.start = function(){
     if (this.host === "https://my.sailthru.com" || this.host === "https://su.sailthru.com"){
         this.$ailthru("#header_top_right","addToggleButton");
-        this.$ailthru(".pagination","addAJAXListener");
         if (this.cookie !== "off") {
+            this.$ailthru(".pagination","addAJAXListener");
             this.insertElementsByPath(this.path);
         }
     }
