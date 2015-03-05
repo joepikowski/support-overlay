@@ -4,7 +4,8 @@
 // @version      0.6
 // @description  A Support-centric features overlay for the Sailthru UI
 // @author       Joe Pikowski
-// @match        https://my.sailthru.com/*,https://su.sailthru.com/*
+// @include      https://my.sailthru.com/*
+// @include      https://su.sailthru.com/*
 // @grant        none
 // ==/UserScript==
 
